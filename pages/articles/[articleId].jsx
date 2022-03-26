@@ -13,7 +13,7 @@ import getBlogsService from "../../services/home/getBlogs";
 export default function Article({ article }) {
   const { isFallback } = useRouter();
   if (isFallback) return <InitialLoadingComponent />;
-  const url = "https://fastidious-gumdrop-b3615a.netlify.app/articles/"+article.id;
+  const url = "https://bdevblog.netlify.app/articles/"+article.id;
   return (
     <div className="container">
       <Head>
@@ -21,7 +21,7 @@ export default function Article({ article }) {
         <meta name="description" content={article.description} />
         <meta property="og:url" content={url} />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={article.title.substring(0,3)} />
+        <meta property="og:title" content={article.title} />
         <meta property="og:description" content={article.description} />
         <meta property="og:image" content={article.imageUrl} />
         <meta property="og:image:width" content="1200" />
