@@ -11,12 +11,14 @@ export default function LayoutHeaderComponent() {
   const closeIcon = 3;
   const [menuOpened, setMenuOpened] = useState(false);
   const [hamburguerState, sethamburguerState] = useState(1);
+  const [isFirstRender, setIsFirstRender] = useState(true);
   useEffect(() => {
     if (router.asPath == "/") sethamburguerState(hambuguerMenuIcon);
     if (router.asPath != "/") sethamburguerState(comebackIcon);
   }, [router.asPath]);
 
   const handleHamburguerClick = () => {
+    setIsFirstRender(false);
     if (router.asPath != "/") router.push("/");
     if (router.asPath == "/") {
       sethamburguerState(!menuOpened ? closeIcon : hambuguerMenuIcon);
@@ -38,7 +40,7 @@ export default function LayoutHeaderComponent() {
           <Slogan white={menuOpened}>blog</Slogan>
         </div>
       </HeaderStyle>
-      <SidemenuComponent show={menuOpened} />
+      <SidemenuComponent isFirstRender={isFirstRender} show={menuOpened} />
     </>
   );
 }

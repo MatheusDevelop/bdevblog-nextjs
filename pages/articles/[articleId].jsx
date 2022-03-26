@@ -13,7 +13,7 @@ import getBlogsService from "../../services/home/getBlogs";
 export default function Article({ article }) {
   const { isFallback } = useRouter();
   if (isFallback) return <InitialLoadingComponent />;
-  const url = "";
+  const url = "https://fastidious-gumdrop-b3615a.netlify.app/articles/"+article.id;
   return (
     <div className="container">
       <Head>

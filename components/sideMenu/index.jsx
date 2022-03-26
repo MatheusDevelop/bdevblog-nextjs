@@ -6,9 +6,9 @@ import {
   SidemenuItemStyle,
 } from "./style";
 
-export default function SidemenuComponent(props = { show: false }) {
+export default function SidemenuComponent(props = { show: false ,isFirstRender:true}) {
   return (
-    <SidemenuContainerStyle show={props.show}>
+    <SidemenuContainerStyle isFirstRender={props.isFirstRender} show={props.show}>
       <div className="container" style={{ height: "100%" }}>
         <div
           style={{ height: "100%" }}

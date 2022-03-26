@@ -59,6 +59,7 @@ export default function Home({
 
   const sectionEndRef = useRef(null);
   useEffect(() => {
+    console.log('V1')
     if (allBlogsLoaded) return;
     const intersectionObserver = new IntersectionObserver((e) => {
       if (e.some((entry) => entry.isIntersecting)) {
