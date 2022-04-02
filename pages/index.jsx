@@ -7,28 +7,10 @@ import getBlogsService from "../services/home/getBlogs";
 export const getStaticProps = async () => {
   let actualPage = 1;
   let loadedBlogsSections = [];
-  const primarySection = await getBlogsService({
-    itemsByPage: 6,
-    numberOfPage: actualPage,
-    quicksearch: "",
-  });
+  const primarySection = await getBlogsService({});
 
   loadedBlogsSections = [{ blogs: primarySection.data }];
-  const allBlogsAreLoaded =
-    primarySection.data.length < primarySection.filter.itemsByPage;
-
-  if (!allBlogsAreLoaded) {
-    actualPage++;
-    const secondarySection = await getBlogsService({
-      itemsByPage: 6,
-      numberOfPage: 2,
-      quicksearch: "",
-    });
-    loadedBlogsSections = [
-      ...loadedBlogsSections,
-      { blogs: secondarySection.data },
-    ];
-  }
+  const allBlogsAreLoaded = true;
 
   return {
     props: {
@@ -59,7 +41,7 @@ export default function Home({
 
   const sectionEndRef = useRef(null);
   useEffect(() => {
-    console.log('V1')
+    console.log('V2')
     if (allBlogsLoaded) return;
     const intersectionObserver = new IntersectionObserver((e) => {
       if (e.some((entry) => entry.isIntersecting)) {

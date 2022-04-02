@@ -13,7 +13,7 @@ import getBlogsService from "../../services/home/getBlogs";
 export default function Article({ article }) {
   const { isFallback } = useRouter();
   if (isFallback) return <InitialLoadingComponent />;
-  const url = "https://bdevblog.netlify.app/articles/"+article.id;
+  const url = "https://bdevblog.netlify.app/articles/" + article.id;
   return (
     <div className="container">
       <Head>
@@ -66,24 +66,52 @@ export default function Article({ article }) {
             if (attribute.type == 2)
               return (
                 <div key={idx} className="mt-2">
-                  <TextComponent p>{attribute.value}</TextComponent>
+                  <TextComponent p>
+                    <div
+                      dangerouslySetInnerHTML={{ __html: attribute.value }}
+                    />
+                  </TextComponent>
                 </div>
               );
             if (attribute.type == 3)
               return (
                 <div key={idx} className="mt-4">
-                  <Image
-                    src={attribute.value}
-                    layout="responsive"
-                    height="300"
-                    width="300"
-                  />
+                  <TextComponent h3>{attribute.value}</TextComponent>
                 </div>
               );
             if (attribute.type == 4)
               return (
                 <div className="mt-4">
-                  <ReactPlayer url={attribute.value} />
+
+                <TextComponent p>
+                  <a
+                    href={attribute.subvalue}
+                    className="p-2"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      textDecoration: "none",
+                      borderLeft: "2px solid rgb(20,20,20)",
+                      background:'#14141418',
+                      alignItems: "center",
+                      justifyContent:"space-between",
+                      width:250,
+                      color:'rgb(20,20,20)',
+                      display: "flex",
+                      boxShadow:'0px 0px 6px #0000003a'
+                    }}
+                  >
+                    {attribute.value}
+                    <MaterialIcon size={18} iconName={"south_east"} />
+                  </a>
+                </TextComponent>
+                </div>
+
+              );
+            if (attribute.type == 5)
+              return (
+                <div className="mt-4">
+                  <ReactPlayer width="250" url={attribute.value} />
                 </div>
               );
           })}
@@ -93,11 +121,7 @@ export default function Article({ article }) {
   );
 }
 export const getStaticPaths = async () => {
-  const blogs = await getBlogsService({
-    itemsByPage: 20,
-    numberOfPage: 1,
-  });
-  const paths = blogs.data.map((blog) => ({ params: { articleId: `${blog.id}` } }));
+  const paths = [{ params: { articleId: "1" } }];
   return {
     paths,
     fallback: true,
